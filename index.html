@@ -4,20 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>JavaSript Array Assessment</title>
+  <title>JavaScript Array Assessment</title>
 </head>
 <body>
+  <div class="main-wrapper">
+    <h1>Image Generator</h1>
+    <div class="container">
+      <div class="image-container">
+        <div id="imgContainer"></div>
+        <button id="generator">Click here to generate an image!</button>
+      </div>
 
-  <h1>Image Generator</h1>
-  <div class="container">
-    <div class="image-container">
-      <div id="imgContainer"></div>
-      <button id="generator">Click here to generate an image!</button>
+      <div class="form">
+        <input type="email" placeholder="email" id="email">
+        <button id="save">Save</button>
+        <button id="submit">Submit</button>
+      </div>
     </div>
 
-    <div class="form">
-      <input type="email" placeholder="email">
-      <button>Submit</button>
+    <div class="saved-users">
+      <table>
+        <thead>
+          <tr>
+            <th>Images Saved</th>
+            <th>User Email</th>
+          </tr>
+        </thead>
+        <tbody id="savedUsers">
+        </tbody>
+      </table>
     </div>
   </div>
   <script src="app.js"></script>
