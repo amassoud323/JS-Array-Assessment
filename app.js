@@ -48,12 +48,19 @@ async function loadRandomImage() {
 }
 
 
+// == EMAIL VALIDITY FUNCTION ==
+function validEmail(email) {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+}
+
+
 // == SAVE IMAGE FUNCTION == 
 function saveCurrentImage() {
   const email = inputEmail.value;
   
   // tell user to enter an email if field empty/invalid
-  if (!email) {
+  if (!validEmail(email)) {
     alert("Please enter a valid email address.");
     return;
   }
@@ -129,13 +136,14 @@ function submitUser() {
   const email = inputEmail.value; 
 
   // enter valid email address if invalid
-  if (!email) {
+  if (!validEmail(email)) {
     alert("Please enter a valid email address.");
     return;
   }
 
   displayUserRow(email);
   inputEmail.value = "";
+  loadRandomImage();
 }
 
 
