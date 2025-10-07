@@ -39,6 +39,9 @@ async function loadRandomImage() {
     img.src = response.url;
   }
 
+  // image alt text
+  img.alt = "Image randomly generated from Picsum.";
+  
   // clear prev image and display new one
   imgContainer.innerHTML = ""; 
   imgContainer.appendChild(img);
@@ -50,14 +53,14 @@ async function loadRandomImage() {
 
 // == EMAIL VALIDITY FUNCTION ==
 function validEmail(email) {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
   return emailRegex.test(email);
 }
 
 
 // == SAVE IMAGE FUNCTION == 
 function saveCurrentImage() {
-  const email = inputEmail.value;
+  const email = inputEmail.value.toLowerCase();
   
   // tell user to enter an email if field empty/invalid
   if (!validEmail(email)) {
@@ -87,6 +90,13 @@ function saveCurrentImage() {
 
   users[email].push(currentImgUrl);
   localStorage.setItem("users", JSON.stringify(users));
+
+  // feedback pop-up to inform user image has been saved
+  const feedback = document.getElementById("feedbackMsg");
+  feedback.textContent = "Saved!";
+  setTimeout(() => {
+    feedback.textContent = "";
+  }, 500);
 }
 
 
@@ -133,7 +143,7 @@ function displayUserRow(email) {
 
 // == SUBMIT SAVED IMAGES ==
 function submitUser() {
-  const email = inputEmail.value; 
+  const email = inputEmail.value.toLowerCase(); 
 
   // enter valid email address if invalid
   if (!validEmail(email)) {
@@ -141,9 +151,25 @@ function submitUser() {
     return;
   }
 
+  // prevent user from saving an email with 0 saved images to table
+  const users = getUserFromLocal();
+  const userImages = users[email];
+
+  if (!userImages || userImages.length === 0) {
+    alert("Please save at least one image before submitting.");
+    return;
+  }
+
   displayUserRow(email);
   inputEmail.value = "";
   loadRandomImage();
+
+  // pop-up feedback to say images submitted
+  const feedback = document.getElementById("feedbackMsg");
+  feedback.textContent = "Images submitted!";
+  setTimeout(() => {
+    feedback.textContent = "";
+  }, 1000);
 }
 
 

@@ -88,3 +88,11 @@ table, th, td {
 .foot:hover {
   text-decoration: underline;
 }
+
+#feedbackMsg {
+  margin-left: 0px;
+  color: green;
+  font-weight: bold;
+  width: 60px;
+  display: inline-block;
+}
